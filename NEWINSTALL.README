@@ -47,3 +47,11 @@ sudo apt install virtualbox
 sudo dpkg-reconfigure virtualbox-dkms
 sudo dpkg-reconfigure virtualbox
 sudo modprobe vboxdrv
+
+
+# Install latest video drivers
+# https://launchpad.net/~oibaf/+archive/ubuntu/graphics-drivers
+# ppa:oibaf/graphics-drivers to your system's Software Sources. (Read about installing)
+
+sudo add-apt-repository ppa:oibaf/graphics-drivers
+sudo apt-get update
