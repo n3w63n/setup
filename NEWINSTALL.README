@@ -65,3 +65,6 @@ echo "deb [arch=amd64] https://repo.skype.com/deb stable main" | sudo tee /etc/a
 sudo apt-get update
 sudo apt-get install skypeforlinux -y 
 
+
+# Install openforti and network manager for openforti
+sudo apt install openfortivpn network-manager-fortisslvpn
