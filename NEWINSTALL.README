@@ -68,3 +68,16 @@ sudo apt-get install skypeforlinux -y
 
 # Install openforti and network manager for openforti
 sudo apt install openfortivpn network-manager-fortisslvpn
+
+# Install energized blocking
+# https://github.com/EnergizedProtection/block#thanks-to--
+mkdir -p ~/bin/energized
+cd ~/bin/energized
+wget -q "https://raw.githubusercontent.com/EnergizedProtection/Energized_Linux/master/energized.sh"
+chmod +x energized.sh
+sudo ./energized.sh
+#Select Ultimate pack
+
+
+
+
