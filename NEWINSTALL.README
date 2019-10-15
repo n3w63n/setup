@@ -78,6 +78,18 @@ chmod +x energized.sh
 sudo ./energized.sh
 #Select Ultimate pack
 
+# Install Kodi
+sudo add-apt-repository ppa:team-xbmc/ppa
+sudo apt-get update
+sudo apt install kodi
 
+# Install TOR
+# https://2019.www.torproject.org/docs/debian
+sudo sh -c 'echo "deb https://deb.torproject.org/torproject.org bionic main" >> /etc/apt/sources.list.d/torproject.list'
+sudo sh -c 'echo "deb-src https://deb.torproject.org/torproject.org bionic main" >> /etc/apt/sources.list.d/torproject.list'
+curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import
+gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
+sudo apt update
+sudo apt install tor deb.torproject.org-keyring
 
 
