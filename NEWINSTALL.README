@@ -99,4 +99,5 @@ sudo apt install tor deb.torproject.org-keyring
 # Adsorber
 # https://github.com/stablestud/adsorber
 
-
+# HP Linux Imaging and Printing - HPLIP Driver
+sudo add-apt-repository ppa:hplip-isv/ppa
