@@ -101,3 +101,18 @@ sudo apt install tor deb.torproject.org-keyring
 
 # HP Linux Imaging and Printing - HPLIP Driver
 sudo add-apt-repository ppa:hplip-isv/ppa
+
+# Istall TLP - Energy and Battery manager
+sudo apt install tlp tlp-rdw
+# Additional package for Thinkpads
+sudo apt install tp-smapi-dkms acpi-call-dkms
+# Install GUI for /etc/tlp.conf
+sudo add-apt-repository ppa:linuxuprising/apps
+sudo apt-get update
+sudo apt-get install tlpui
+
+
+sudo tlp start
+
+
+
