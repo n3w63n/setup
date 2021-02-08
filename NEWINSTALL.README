@@ -17,11 +17,14 @@ sudo apt-key add - < Release.key
 sudo apt-get update
 sudo apt-get install albert
 
+# Install either Shutter or Flameshot
 
 # Install Shutter
 sudo add-apt-repository ppa:linuxuprising/shutter
 sudo apt install shutter
 
+# Install Flameshot
+sudo apt install flameshot
 
 # Install Chrome
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
