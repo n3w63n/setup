@@ -1,0 +1,76 @@
+This file is a backup of the info in reddit
+In this repo are also the firmware files for the HP 8600 n911_a
+
+IMPORTANT LINKS
+- https://www.reddit.com/r/printers/comments/1dl58d9/how_to_downgrade_your_hp_officejet_pro_8600_plus/
+- https://ftp.ext.hp.com/pub/networking/software/pfirmware/pfirmware.glf
+
+The command used was:
+lpr -S 192.168.8.11 -P 192.168.8.11 ojpro_8600_n911_a_1304A_10042013.ful.rfu
+
+Altough the printer showed "Printer Failure", at a point it was flashing the firmware
+
+
+
+########## Original Article ##########
+
+
+r/printers icon
+Go to printers
+r/printers
+•
+5 mo. ago
+LDW073
+
+How to downgrade your HP OfficeJet Pro 8600 Plus (N911g) to (hopefully) fix Ink System Failure error when using third party inks.
+Troubleshooting
+This was meant to just be a tutorial post on how to downgrade your printer firmware to solve Ink System Failure messages when using third-party cartridges, but in the process of writing this up I opened the cartridge door to double check my printer model number (HP OfficeJet Pro 8600 Plus N911g). After doing this my problem immediately returned. This is probably going to be a long post with a lot of potentially irrelevant info but I figured it would be best to document my entire troubleshooting process on the off-chance that someone else is in a similar situation. Just skip to "How to downgrade the firmware" if you don't want the spiel.
+
+Here's the error I get:
+
+Ink System Failure:
+There is a problem with the printer or ink system.
+Turn the printer off, then on.
+If problem persists, contact HP.
+
+This issue first started after I installed some third-party ink cartridges. This was a printer I picked up for free. It was decent, but having owned HP inkjets in the past I know their history of randomly failing, shitty customer support and even shittier business model, so when it finally ran out of the genuine ink it came with I wasn't prepared to spend $300-$400AUD on genuine cartridges to use it again. I picked up a cheap set of 4 colours from eBay for $25.
+
+When I installed them I was met with the ink system failure error above. I reinstalled the genuine inks (a couple of which were detecting as empty and the others really low) and the error went away. I reinstalled the non-genuine cartridges again one by one and was eventually able to determine that the error only came up when I installed the cyan cartridge. Ok, so this must be a problem with that cartridge's chip? Fair enough they were cheap fakies after all. I ordered a new non-genuine cyan cartridge. Once it arrived I put the genuine ones back in to remove the error message and tried the new cyan. The issue came back immediately. Maybe this was an issue with the printer after all, but I couldn't shake the feeling that the printer firmware was detecting that I had installed non-genuine cartridges and was trying to convince me they were the problem. If you're familiar with HP this is not that far of a stretch - they have sent firmware updates to outright block third party ink before.
+
+How to downgrade the firmware:
+
+I set out to downgrade the firmware of the printer. Easier said than done as most of the tools to do this have been removed from HP's website. After hours scouring Reddit, HP and random forums I came across a link to a file on an HP FTP server that contained links to a bunch of legacy firmware.
+
+You can just search for your printer's firmware and paste the link in your browser to download it, however on the assumption that it likely won't be there forever I've mirrored that file (which contains printer models, firmware versions and filenames) and all of the .RFU firmware files on GitHub (There's over 400 of these and some are over a GB so this may take a while for me to actually download/upload). Download your firmware file and continue on.
+
+The method to actually install the firmware onto the printer uses the legacy LDP/LPR protocol to send the firmware to the printer via Ethernet. You have to have the printer installed on your machine to do this (you may need a USB cable for this). I used Windows 11 and had to first install the basic printer drivers from the hp website. Here are the ones for the 8600. Once the printer is installed go to Printers & Scanners, click on the printer and then go to "Printer properties" and tick the "Share this printer" box. Then you have to ensure LPR functionality is turned on in Windows: open the Start menu and type "Turn Windows features on and off", scroll down to "Print and Document Services" and tick that box.
+
+Now you can disconnect your USB cable and connect your printer to your computer using an Ethernet cable. Wait a moment for Windows to configure the connection. You can run the "arp -a" in command prompt to list the IPs available on your Ethernet adapter. This is what it looked like for me. In my case the first IP under the second interface "169.254.245.126" was the printer. You can confirm this by checking your printer's IP through its interface. On the 8600 there should be an Ethernet connection symbol 2nd in the top row of icons, click that and it should display one of the IPs in the "arp -a" list.
+
+Then all you have to do is open Command Prompt in the same directory where you downloaded the RFU file and execute this command:
+
+lpr -S <your.printers.ip.address> -P <your.printers.ip.address> yourfirmwarefilename.rfu
+
+In my case this was the command:
+
+lpr -S 169.254.245.126 -P 169.254.245.126 ojpro_8600_n911_g_n_1304A_10042013.ful.rfu
+
+This part tripped me up for a while, I expect it to be a source IP (the computer) and a destination IP (the printer) but no, you list the same IP twice. If someone can explain why that is I'd love to know.
+
+After executing command you stare at your printer supposedly doing absolutely nothing for about a minute and assuming your efforts have failed once again and then it suddenly works! If you see this screen you're in business.
+
+Wait a couple minutes and it should boot up again. In my case I still had the genuine cartridges installed as this left the printer in a non-error state (it's possible you need to be in a "ready" state for this to work but I haven't tested this). I then installed the full set of third-party cartridges again and it printed out a "Printer Status Report" page automatically.
+
+FYI here are some of the posts I found that helped me get to this point:
+
+This is the one I have expanded on in this post
+
+An HP Forum post: How to downgrade officejet 8600 to older firmware to enable non-hp cartridges.
+
+In this one see "Remote firmware update using an LPR command"
+
+Now obviously the bad news as I alluded to earlier: I only saw it print that single "Printer Status Report" page before I opened the cartridge door and the "Ink System Failure" issue came back. I'm not sure why this happened, perhaps there really is some issue but whatever it is, I've proven it's not anything so catastrophic that it literally can't print so in all honesty I don't really care what it may be. I think I will reinstall the genuine cartridges again to clear the error and try this process again and just avoid opening the cartridge door wherever possible.
+
+One last note. If this works for you, make sure you disable automatic firmware updates. I haven't worked out how to do this yet but this may be a lead.
+
+Good luck and remember to NEVER buy an HP printer again!
